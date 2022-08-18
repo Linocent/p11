@@ -48,12 +48,23 @@ def search(request, query):
         return page_not_found(request, message)
     else:
         answer_prod = Product.objects.filter(name__icontains=query)
+        if Categorie.objects.get(name__icontains=query):
+            cat = Categorie.objects.get(name__icontains=query)
+            answer_cat = Product.objects.filter(categorie=cat.id)
+            print(answer_cat)
+            return render(
+                request,
+                'comparator/search_form.html',
+                {'answer_prod': answer_cat, 'query': query}
+            )
+
         if answer_prod.exists():
             return render(
                 request,
                 "comparator/search_form.html",
                 {"answer_prod": answer_prod, 'query': query}
             )
+
         if not answer_prod.exists():
             message = "Misère de misère, nous n'avons " \
                       "rien trouvé comme résultat!"
