@@ -1,11 +1,10 @@
-import unittest
 from django.test import Client
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 
 
-class CreationUserTest(unittest.TestCase):
+class CreationUserTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.username = 'test'
@@ -57,21 +56,22 @@ class LoginTest(TestCase):
 class ResetPasswordTest(TestCase):
 
     def setup(self):
-        user = User.objects.create_user(
+        self.user = User.objects.create_user(
             email="email@email.com",
             username="test",
             password="1234azerty56789",
         )
-        user.save()
+        self.user.save()
         self.client.login(username='test', password='123456789')
 
     def test_reset_password(self):
         response = self.client.get(reverse('password_reset'))
         self.assertEqual(response.status_code, 200)
-        email = self.client.post(
-            '/user_base/reset_password/',
-            data={
+        response = self.client.post(reverse(
+            'password_reset'),
+            {
                 'email': 'email@email.com',
             }
         )
-        self.assertEqual(email.status_code, 302)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/user_base/password_reset/done/')
