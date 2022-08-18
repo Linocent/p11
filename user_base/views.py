@@ -4,7 +4,7 @@ from django.contrib.auth import (
 )
 from django.shortcuts import (
     render,
-    redirect
+    redirect,
 )
 from .forms import SignUpForm
 from django.contrib.auth.decorators import login_required
