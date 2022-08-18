@@ -1,37 +1,46 @@
-# Créez une paltforme pour amateur de Nutella
+# Améliorer un projet existant en Python
 ***
 
-## Cahier des charges
-Le cahier des charges est disponible <a href="https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/DAPython_P8/Cahier_des_charges.zip"> en cliquant sur ce lien.</a>
+## Contexte
+“ô rage ! ô désespoir ! ô vieillesse ennemie ! N’ai-je donc tant vécu que pour cette infamie ?” vous exclamez-vous en découvrant dans votre boîte mail un message de votre dernier client, pourtant si content lors de la dernière mise en production.
+
+
+“Bonjour,
+
+Je vous remercie pour le travail réalisé. Néanmoins nous avons découvert qu’il manquait une fonctionnalité importante que nous aimerions développer. Combien de temps cela vous prendrait-il ?
+
+Nous avons également remarqué des dysfonctionnements (rien n’apparaît lorsque nous lançons Internet Explorer). Nos développeurs ont essayé de résoudre les bugs mais en vain, apparemment. Ils viennent de me dire de vous contacter car les tests sont cassés (je ne sais pas ce que cela signifie mais je transmets) et menacent la production (ça, j'ai bien compris - ils ont travaillé directement sur le site en ligne !).
+
+C’est tout pour aujourd’hui.
+
+Merci.
+
+Cordialement,
+
+Dona Jimena”
+
+
+Évidemment, vous allez corriger… Car, comme diraient les Shadoks, s’il n’y a pas de solution, c’est qu’il n’y a pas de problème. Allez, c’est parti !
 
 ***
 ## Fonctionnalités
-* Affichage du champ de recherche dès la page d'accueil
-* La recherche ne doit pas s'effectuer en AJAX
-* Interface responsive
-* Authentification de l'utilisateur: création de compte en entrant un mail et un mot de passe, sans possibilité de changer son mot de passe pour le moment.
+Basez-vous sur l’un des projets que vous avez déjà réalisés dans ce parcours de formation ou dans votre carrière. Choisissez une fonctionnalité à ajouter. Elle doit être assez importante pour justifier des tests fonctionnels. Votre mentor jouera le rôle du client. Jouez le jeu et communiquez avec lui de la même manière que vous le feriez avec un client : soignez votre présentation, l’endroit où se déroule votre session de mentorat et l’orthographe dans vos e-mails !
+
+Quant aux tests, cassez-en un puis réparez-le en le refactorant. Je suis sûre que vous avez un test caché quelque part qui mérite une nouvelle jeunesse !
 
 ***
 ## Livrables
-* Lien vers le <a href="https://leshtroumpfpurbeurre.herokuapp.com/">site</a> en production, entièrement fonctionnel.
-* Document écrit expliquant notre __démarche de création__:
-  * difficultés rencontrées / solution trouvées
-  * lien GitHub
-  * lien du site déployé pour utiliser notre projet en production
-  * format pdf n'excédent pas 2 pages
-  * rédigé en anglais ou français
-* Code source du dépôt GitHub
-* Tableau agile sur <a href="https://trello.com/b/T00arpyO/pur-beurre">Trello</a>
+* Code source modifié et hébergé sur Github. Il inclut les commits d’ajout de la nouvelle fonctionnalité et de correction des tests (soignez vos messages !).
+* E-mails de réponse au client : première réponse prenant bien note de la menace en production, seconde réponse informant de la correction du bug et troisième réponse présentant votre nouveau travail (ajout de la fonctionnalité demandée).
+* Document écrit expliquant votre démarche de création, les difficultés rencontrées et la manière dont vous les avez résolues. Le document doit être en format pdf et ne pas excéder 2 pages A4. Il peut être rédigé en anglais ou en français, au choix, mais prenez bien en considération que les fautes d’orthographe et de grammaire seront évaluées !
 
+***
 ## Contraintes
-* Tests: testez le projet en adoptant la démarche qui nous semble la plus appropriée (TDD ou tests écrits à la fin d'une fonctionnalitée).
-* Utilisez une base de données PostgresSQL et non MySQL sous peine de ne pas pouvoir déployer l'applicaiton sur Heroku.
-* Inclure une page "Mentions Légales" qui contiendra toutes les coordonnées de l'hébergeur ainsi que les auteurs des différentes ressources libres utilisées (templates, photos, icônes, ...).
-* Suivre les bonnes pratiques de la PEP 8.
-* Pusher le code régulièrement sur GitHub et créer des PR pour avoir le retour du mentor.
-* Code intégralement rédigé en anglais: fonctions, commentaires, ...
-* Utiliser une méthodologie de projet agile pour travailler en mode projet.
+* Votre code est sur Github et comporte un historique de commits cohérent,
+* Votre code est écrit en anglais : commentaires, variables, …
+* Votre nouvelle fonctionnalité inclut des tests unitaires et fonctionnels. Vous pouvez coder en TDD si vous le souhaitez.
 
+***
 ## How to get this app:
 1. Clone this repo;
 2. Create a database whit PostgreSQL;

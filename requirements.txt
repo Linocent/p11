@@ -16,3 +16,4 @@ gunicorn
 pytest-django
 sentry-sdk
 raven
+Footer
