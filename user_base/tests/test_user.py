@@ -53,3 +53,25 @@ class LoginTest(TestCase):
         })
         self.assertEqual(credential.status_code, 302)
 
+
+class ResetPasswordTest(TestCase):
+
+    def setup(self):
+        user = User.objects.create_user(
+            email="email@email.com",
+            username="test",
+            password="1234azerty56789",
+        )
+        user.save()
+        self.client.login(username='test', password='123456789')
+
+    def test_reset_password(self):
+        response = self.client.get(reverse('password_reset'))
+        self.assertEqual(response.status_code, 200)
+        email = self.client.post(
+            '/user_base/reset_password/',
+            data={
+                'email': 'email@email.com',
+            }
+        )
+        self.assertEqual(email.status_code, 302)
