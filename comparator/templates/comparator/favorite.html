@@ -1,0 +1,47 @@
+{% extends 'comparator/base.html' %}
+{% block content %}
+
+<header class="masthead">
+    <div class="container px-4 px-lg-5 h-75">
+        <div class="row gx-4 gx-lg-5 h-75 align-items-center justify-content-center text-center">
+            <div class="col-lg-8 align-self-end">
+                <h1 class="text-uppercase text-white font-weight-bold"> Favoris enregistré: </h1>
+                <hr class="divider my-4" />
+            </div>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="row">
+            {% if not msg %}
+                {% for elt in sub %}
+                    <div class="col-lg-4 text-center">
+                        <div class="mt-5">
+                            <div class="prod">
+                                <div class="product">
+                                    <a href="{% url 'fav_detail' product_id=elt.product_id %}">
+                                        <h3 class="card-title">{{elt.name}}</h3>
+                                    </a>
+                                    <img src={{elt.image}}>
+                                    <span class="nutriscore"><small> {{elt.nutriscore}} </small></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center justify-content-center text-center">
+                        <div class="col-lg-10 align-self-end">
+                            <p>{{ msg }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
