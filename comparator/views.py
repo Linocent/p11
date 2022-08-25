@@ -48,16 +48,6 @@ def search(request, query):
         return page_not_found(request, message)
     else:
         answer_prod = Product.objects.filter(name__icontains=query)
-        if Categorie.objects.get(name__icontains=query):
-            cat = Categorie.objects.get(name__icontains=query)
-            answer_cat = Product.objects.filter(categorie=cat.id)
-            print(answer_cat)
-            return render(
-                request,
-                'comparator/search_form.html',
-                {'answer_prod': answer_cat, 'query': query}
-            )
-
         if answer_prod.exists():
             return render(
                 request,
@@ -88,6 +78,15 @@ def add_favorite(request):
         )
         favoris.save()
     return redirect('/')
+
+
+@login_required
+def removefavorite(request):
+    """Remove favorite product"""
+    if request.method == 'POST':
+        favorite = request.POST.get('favorite_id')
+        Favorite.objects.filter(substitute=favorite).delete()
+        return redirect('favorite')
 
 
 def page_not_found(request, message):
@@ -150,6 +149,7 @@ def my_account(request):
         'comparator/account.html',
         {'username': username, 'mail': mail}
     )
+
 
 
 def mention_legal(request):
