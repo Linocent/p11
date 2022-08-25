@@ -24,3 +24,11 @@ class ResetPassword(PasswordResetForm):
     class Meta:
         model = User
         fields = ('email')
+
+
+class UpdateUserForm(forms.ModelForm):
+    email = forms.EmailField(max_length=200)
+
+    class Meta:
+        model = User
+        fields = ('email',)

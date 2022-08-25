@@ -93,3 +93,26 @@ class ResetPasswordTest(TestCase):
             {'new_password1': 'pass', 'new_password2': 'pass'}
         )
         self.assertEqual(response.status_code, 302)
+
+
+class ChangeEmailTest(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(
+            id=1,
+            username='test',
+            email='email@email.com',
+            first_name='first_name',
+            password='123456789'
+        )
+        user.save()
+        self.client.login(username='test', password='123456789')
+
+    def test_change_password(self):
+        response = self.client.get(reverse('changeemail'))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post(
+            '/user_base/changeemail/',
+            {'email': 'emails@email.com'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'comparator/account.html')
