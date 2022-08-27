@@ -54,6 +54,7 @@ def search(request, query):
                 "comparator/search_form.html",
                 {"answer_prod": answer_prod, 'query': query}
             )
+
         if not answer_prod.exists():
             message = "Misère de misère, nous n'avons " \
                       "rien trouvé comme résultat!"
@@ -77,6 +78,15 @@ def add_favorite(request):
         )
         favoris.save()
     return redirect('/')
+
+
+@login_required
+def removefavorite(request):
+    """Remove favorite product"""
+    if request.method == 'POST':
+        favorite = request.POST.get('favorite_id')
+        Favorite.objects.filter(substitute=favorite).delete()
+        return redirect('favorite')
 
 
 def page_not_found(request, message):
@@ -139,6 +149,7 @@ def my_account(request):
         'comparator/account.html',
         {'username': username, 'mail': mail}
     )
+
 
 
 def mention_legal(request):

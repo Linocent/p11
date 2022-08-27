@@ -1,0 +1,8 @@
+{% autoescape off %}
+
+Bonjour {{ user.username }}!
+
+Veuillez cliquer sur le lien suivant pour changer votre mot de passe.
+
+http://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+{% endautoescape %}

@@ -128,6 +128,13 @@ class FavoritePageTest(TestCase):
         )
         self.assertEqual(response.status_code, 302)
 
+    def test_remove_favorite(self):
+        response = self.client.post(
+            '/comparator/removefavorite/',
+            {'favorite_id': '987654321'}
+        )
+        self.assertEqual(response.status_code, 302)
+
 
 class TestMyAccount(TestCase):
     def setUp(self):

@@ -1,11 +1,11 @@
-import unittest
 from django.test import Client
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.core import mail
 
 
-class CreationUserTest(unittest.TestCase):
+class CreationUserTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.username = 'test'
@@ -53,3 +53,66 @@ class LoginTest(TestCase):
         })
         self.assertEqual(credential.status_code, 302)
 
+
+class ResetPasswordTest(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(
+            email="email@email.com",
+            username="test",
+            password="1234azerty56789",
+        )
+        self.user.save()
+
+    def test_reset_password(self):
+        response = self.client.get(reverse('password_reset'))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post(reverse(
+            'password_reset'),
+            data={
+                'email': 'email@email.com',
+            }
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertRedirects(response, '/user_base/password_reset/done/')
+
+        token = response.context['token']
+        uid = response.context['uid']
+        response = self.client.get(reverse(
+            'password_reset_confirm',
+            kwargs={'token': token, 'uidb64': uid}
+        ))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/user_base/password-reset-confirm/{uid}/set-password/')
+
+        response = self.client.post(
+            reverse(
+                'password_reset_confirm',
+                kwargs={'token': token, 'uidb64': uid}),
+            {'new_password1': 'pass', 'new_password2': 'pass'}
+        )
+        self.assertEqual(response.status_code, 302)
+
+
+class ChangeEmailTest(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(
+            id=1,
+            username='test',
+            email='email@email.com',
+            first_name='first_name',
+            password='123456789'
+        )
+        user.save()
+        self.client.login(username='test', password='123456789')
+
+    def test_change_password(self):
+        response = self.client.get(reverse('changeemail'))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post(
+            '/user_base/changeemail/',
+            {'email': 'emails@email.com'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'comparator/account.html')

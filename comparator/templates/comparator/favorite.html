@@ -26,6 +26,11 @@
                                     </a>
                                     <img src={{elt.image}}>
                                     <span class="nutriscore"><small> {{elt.nutriscore}} </small></span>
+                                    <form method="post" action="/comparator/removefavorite/" class="form-inline my-2 my-lg-0">
+                                        {% csrf_token %}
+                                        <input type="hidden" id="favorite_id" name="favorite_id" value="{{ elt.product_id}}">
+                                        <button class="btn btn-primary btn-xl" type="submit">Supprimer le favoris</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

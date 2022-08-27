@@ -4,9 +4,9 @@ from django.contrib.auth import (
 )
 from django.shortcuts import (
     render,
-    redirect
+    redirect,
 )
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateUserForm
 from django.contrib.auth.decorators import login_required
 from .backend import EmailBackend
 from django.contrib.auth.models import User
@@ -52,3 +52,16 @@ def log_in(request):
 def logged_out(request):
     logout(request)
     return redirect('/')
+
+
+@login_required
+def change_email(request):
+    """User can change email here"""
+    if request.method == 'POST':
+        form = UpdateUserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return render(request, 'comparator/account.html')
+    else:
+        form = UpdateUserForm()
+    return render(request, 'user_base/change_email.html', {'form': form})
